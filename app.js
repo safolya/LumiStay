@@ -8,6 +8,7 @@ app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("hello");
@@ -49,9 +50,16 @@ app.get("/listing/:id/edit",async(req,res)=>{
 app.put("/listing/:id",async(req,res)=>{
     let {id}=req.params;
     let list=await listingModel.findByIdAndUpdate(id,{...req.body.list});
-    res.redirect("/listing");
+    res.redirect(`/listing/${id}`);
 });
 
+//delete route
+app.delete("/listing/:id/delete",async(req,res)=>{
+    let {id}=req.params;
+    let deletelist=await listingModel.findByIdAndDelete(id);
+    console.log(deletelist);
+    res.redirect("/listing");
+})
 //show route
 app.get("/listing/:id",async(req,res)=>{
     let {id}=req.params;

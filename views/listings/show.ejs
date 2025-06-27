@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List</title>
-</head>
-<body>
+<%- include('../partials/header.ejs') %>
     <%= list.title %>
     <ul>
         <li><%=list.description%></li>
@@ -14,5 +7,8 @@
         <li> &#8377; <%=list.price.toLocaleString("en-IN")%></li>
     </ul>
     <a href="/listing/<%= list._id %>/edit"><button>Edit</button></a>
-</body>
-</html>
+    <br><br>
+    <form action="/listing/<%= list._id %>/delete?_method=DELETE" method="post">
+        <button>Delete</button>
+    </form>
+<%- include('../partials/footer.ejs') %>

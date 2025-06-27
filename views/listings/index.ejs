@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listings</title>
-</head>
-<body>
+<%- include('../partials/header.ejs') %>
     <h1>All Listing</h1>
     <h3>Create new list</h3>
     <form action="/listing/new" method="get">
@@ -17,5 +10,4 @@
         </ul>
 
         <%}); %>
-</body>
-</html>
+<%- include('../partials/footer.ejs') %>

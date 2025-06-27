@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New List</title>
-</head>
-<body>
+<%- include('../partials/header.ejs') %>
     <h1>Edit your Post</h1>
-    <form action="/listing/<%= list._id %>?method=PUT" method="post">
+    <form action="/listing/<%= list._id %>?_method=PUT" method="post">
         <input type="text" name="list[title]" value="<%= list.title %>"><br><br>
         <textarea name="list[description]"><%= list.description %></textarea><br><br>
         <input type="text" name="list[country]" value="<%= list.country %>"><br><br>
@@ -16,5 +9,4 @@
         <input type="number" name="list[price]" value="<%= list.price %>"><br><br>
         <input type="submit">
     </form>
-</body>
-</html>
+<%- include('../partials/footer.ejs') %>
