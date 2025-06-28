@@ -3,10 +3,16 @@
     <!--<form action="/listing/new" method="get">
         <button>Click Here</button>
     </form>-->
+    
     <% alllistings.forEach(list => {%>
+        <div class="border-2 mb-2 w-fit">
+        <div class=" w-60 h-40 border-1 overflow-hidden mb-2">
+            <img src="<%=list.image.url%>" class="object-cover object-center" alt="">
+        </div>
         <ul>
             <a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>
         </ul>
+    </div>
 
         <%}); %>
 <%- include('../partials/footer.ejs') %>
