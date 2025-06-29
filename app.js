@@ -50,6 +50,16 @@ app.get("/listing/:id/edit",async(req,res)=>{
 app.put("/listing/:id",async(req,res)=>{
     let {id}=req.params;
     let list=await listingModel.findByIdAndUpdate(id,{...req.body.list});
+    for (let field in req.body.list) {
+            // Only update if the value is not undefined (i.e., it was explicitly submitted)
+            // If you want an empty string to clear a field, then check for `!== undefined`
+            if (req.body.list[field] !== undefined) {
+                list[field] = req.body.list[field];
+            }
+        }
+
+        // Mongoose validation will run on .save() by default
+        await list.save();
     res.redirect(`/listing/${id}`);
 });
 

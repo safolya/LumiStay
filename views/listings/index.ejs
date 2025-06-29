@@ -7,7 +7,7 @@
         <% alllistings.forEach(list => {%>
             <a href="/listing/<%= list._id %>">
             <div class="card rounded-2xl overflow-hidden w-[250px]  shadow-lg  mb-3">
-                <img src="<%=list.image.url %>" class="w-[100%] h-48 object-cover object-center rounded-2xl" alt="picture">
+                <img src="<%=list.image.url %>" class="w-[100%] h-48 object-cover object-center rounded-2xl hover:opacity-50" alt="picture">
                 <div class="p-4">
                     <!--<a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>-->
                     <p><%= list.title %></p>
