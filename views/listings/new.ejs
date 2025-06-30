@@ -1,18 +1,19 @@
 <%- include('../partials/header.ejs') %>
     <h1 class="text-3xl font-semibold p-3 ml-46">Create Your New List</h1>
     <div class="w-full h-screen flex px-50 items-center ">
-        <form action="/listing/create" class="w-full" method="post">
+        <form action="/listing/create" id="loginForm" novalidate class="w-full" method="post">
 
             <div>
                 <label class="block text-2xl font-semibold" for="title">Title</label>
-                <input type="text" class="rounded w-full p-2 border-1 shadow h-10" name="title" placeholder="Title">
+                <input type="text" class="rounded w-full p-2 border-1 shadow h-10  name="list[title]" placeholder="Title">
+                <p id="passwordError" class="text-sm error-text mt-1 hidden">Password is required.</p>
             </div>
 
             <br><br>
 
             <div>
                 <label class="block text-2xl font-semibold" for="description">Description</label>
-                <textarea name="description" class="rounded w-full p-2 border-1 shadow"  placeholder="Description"></textarea>
+                <textarea name="list[description]" class="rounded w-full p-2 border-1 shadow"  placeholder="Description"></textarea>
             </div>
 
             <br>
@@ -21,14 +22,14 @@
 
                 <div>
                     <label class="block text-2xl font-semibold" for="country">Price</label>
-                    <input type="number" name="price" class="rounded w-[300px] p-2 border-1 shadow h-10" placeholder="1200">
+                    <input type="number" name="list[price]" class="rounded w-[300px] p-2 border-1 shadow h-10" placeholder="1200">
                 </div>
                 
                 <br>
                 
                 <div>
                     <label class="block text-2xl font-semibold" for="price">Country</label>
-                    <input type="text" name="country" class="rounded w-[780px] p-2 border-1 shadow h-10" placeholder="India">
+                    <input type="text" name="list[country]" class="rounded w-[780px] p-2 border-1 shadow h-10" placeholder="India">
                 </div>
                 
             </div>
@@ -37,14 +38,14 @@
 
             <div>
                 <label class="block text-2xl font-semibold" for="image">Image</label>
-                <input type="text" name="image" class="rounded w-full p-2 border-1 shadow h-10" placeholder="Image link">
+                <input type="text" name="list[image][url]" class="rounded w-full p-2 border-1 shadow h-10" placeholder="Image link">
             </div>
 
             <br>
 
             <div>
                 <label class="block text-2xl font-semibold" for="location">Location</label>
-                <input type="text" name="location" class="rounded w-full p-2 border-1 shadow h-10" placeholder="Delhi">
+                <input type="text" name="list[location]" class="rounded w-full p-2 border-1 shadow h-10" placeholder="Delhi">
             </div>
 
             <br><br>
