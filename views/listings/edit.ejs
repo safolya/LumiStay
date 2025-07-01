@@ -4,7 +4,7 @@
         <form action="/listing/<%= list._id %>?_method=PUT" method="post">
             <div>
                 <label class="block text-2xl font-semibold" for="title">Title</label>
-                <input type="text" class="rounded w-full p-2 border-1 shadow h-10" name="list[title]" value="<%=list.title%>">
+                <input type="text" class="rounded w-full p-2 border-1 shadow h-10 enabled:hover:border-gray-400 disabled:opacity-75" name="list[title]" value="<%=list.title%>">
             </div>
 
             <br><br>
@@ -36,7 +36,7 @@
 
             <div>
                 <label class="block text-2xl font-semibold" for="image">Image</label>
-                <input type="text" name="list[image][url]" class="rounded w-full p-2 border-1 shadow h-10" value="<%= list.image.url %>">
+                <input type="text" name="list[image][url]" class="rounded w-full p-2 border-1 shadow h-10 " value="<%= list.image.url %>">
             </div>
 
             <br>

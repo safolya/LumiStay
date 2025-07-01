@@ -1,19 +1,28 @@
 <%- include('../partials/header.ejs') %>
     <h1 class="text-3xl font-semibold p-3 ml-46">Create Your New List</h1>
     <div class="w-full h-screen flex px-50 items-center ">
-        <form action="/listing/create" id="loginForm" novalidate class="w-full" method="post">
+        <form action="/listing/create" id="signupForm"  class="w-full" method="post">
 
             <div>
                 <label class="block text-2xl font-semibold" for="title">Title</label>
-                <input type="text" class="rounded w-full p-2 border-1 shadow h-10  name="list[title]" placeholder="Title">
-                <p id="passwordError" class="text-sm error-text mt-1 hidden">Password is required.</p>
+                <input type="text" id="title" required
+                    class="rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors
+                    p-2 border-1 shadow h-10" name="list[title]" placeholder="Title">
+
+                <div class="error-message hidden mt-1 text-sm text-red-600"></div>
+                <div class="success-message hidden mt-1 text-sm text-green-600"></div>
+
             </div>
 
             <br><br>
 
             <div>
                 <label class="block text-2xl font-semibold" for="description">Description</label>
-                <textarea name="list[description]" class="rounded w-full p-2 border-1 shadow"  placeholder="Description"></textarea>
+                <textarea name="list[description]" id="description" required class="rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors w-full p-2 border-1 shadow"
+                    placeholder="Description"></textarea>
+
+                <div class="error-message hidden mt-1 text-sm text-red-600"></div>
+                <div class="success-message hidden mt-1 text-sm text-green-600"></div>
             </div>
 
             <br>
@@ -22,35 +31,57 @@
 
                 <div>
                     <label class="block text-2xl font-semibold" for="country">Price</label>
-                    <input type="number" name="list[price]" class="rounded w-[300px] p-2 border-1 shadow h-10" placeholder="1200">
+                    <input type="text" name="list[price]" required id="price" class="rounded w-[300px] p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                        placeholder="1200">
+
+                    <div class="error-message hidden mt-1 text-sm text-red-600"></div>
+                    <div class="success-message hidden mt-1 text-sm text-green-600"></div>
+
                 </div>
-                
+
                 <br>
-                
+
                 <div>
                     <label class="block text-2xl font-semibold" for="price">Country</label>
-                    <input type="text" name="list[country]" class="rounded w-[780px] p-2 border-1 shadow h-10" placeholder="India">
+                    <input type="text" min="0" name="list[country]" required id="country" class="rounded w-[780px] p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                        placeholder="India">
+
+                        <div class="error-message hidden mt-1 text-sm text-red-600"></div>
+                <div class="success-message hidden mt-1 text-sm text-green-600"></div>
+
                 </div>
-                
+
             </div>
 
             <br>
 
             <div>
                 <label class="block text-2xl font-semibold" for="image">Image</label>
-                <input type="text" name="list[image][url]" class="rounded w-full p-2 border-1 shadow h-10" placeholder="Image link">
+                <input type="text" name="list[image][url]" required id="image" class="rounded w-full p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    placeholder="Image link">
+
+                    <div class="error-message hidden mt-1 text-sm text-red-600"></div>
+                <div class="success-message hidden mt-1 text-sm text-green-600"></div>
+
             </div>
 
             <br>
 
             <div>
                 <label class="block text-2xl font-semibold" for="location">Location</label>
-                <input type="text" name="list[location]" class="rounded w-full p-2 border-1 shadow h-10" placeholder="Delhi">
+                <input type="text" name="list[location]" required id="location" class="rounded w-full p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    placeholder="Delhi">
+
+                    <div class="error-message hidden mt-1 text-sm text-red-600"></div>
+                <div class="success-message hidden mt-1 text-sm text-green-600"></div>
+
             </div>
 
             <br><br>
 
-            <input class="font-semibold bg-black text-white cursor-pointer hover:bg-white hover:text-black hover:border-1 p-2 px-5 rounded" type="submit">
+            <input
+                class="font-semibold bg-black text-white cursor-pointer hover:bg-white hover:text-black hover:border-1 p-2 px-5 rounded"
+                type="submit">
         </form>
     </div>
     <%- include('../partials/footer.ejs') %>
