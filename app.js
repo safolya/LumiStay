@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./config/mongoose-connection");
 const listingModel = require("./models/listing");
+const joilistingSchema=require("./joischema");
 const path = require("path");
 const app = express();
 const methodOverride = require("method-override");
@@ -28,18 +29,19 @@ app.get("/listing/new", (req, res) => {
 
 //create route
 app.post("/listing/create", wrapAsync(async (req, res, next) => {
-    
-        let { title, description, image, country, location, price } = req.body;
-        let newlist = await listingModel.create({
-            title: title,
+        let result=joilistingSchema.validate(req.body);
+        console.log(result);
+        if(result.error){
+            throw new expressError(400,result.error);
+        }
+        let newlist = await listingModel.create(req.body.list);
+        newlist.save();
+        res.redirect("/listing");
+      /*title: title,
             description: description,
             country: country,
             location: location,
-            price: price
-        });
-        newlist.save();
-        res.redirect("/listing");
-    
+            price: price*/
 })
 );
 
