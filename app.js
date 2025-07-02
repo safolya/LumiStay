@@ -1,12 +1,12 @@
 const express = require("express");
 const db = require("./config/mongoose-connection");
 const listingModel = require("./models/listing");
-const joilistingSchema=require("./joischema");
+const joilistingSchema = require("./joischema");
 const path = require("path");
 const app = express();
 const methodOverride = require("method-override");
-const wrapAsync=require("./utils/wrapAsync");
-const expressError=require("./utils/expressError");
+const wrapAsync = require("./utils/wrapAsync");
+const expressError = require("./utils/expressError");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +16,17 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.send("hello");
 });
+
+const validatelisting = (req, res, next) => {
+    let {error} = joilistingSchema.validate(req.body);
+    if (error) {
+        let errmsg=error.details.map((el)=>el.message).join(",");
+        throw new expressError(400,errmsg);
+    }else{
+        next();
+    }
+};
+
 //index route
 app.get("/listing", wrapAsync(async (req, res) => {
     const alllistings = await listingModel.find({});
@@ -28,20 +39,16 @@ app.get("/listing/new", (req, res) => {
 });
 
 //create route
-app.post("/listing/create", wrapAsync(async (req, res, next) => {
-        let result=joilistingSchema.validate(req.body);
-        console.log(result);
-        if(result.error){
-            throw new expressError(400,result.error);
-        }
-        let newlist = await listingModel.create(req.body.list);
-        newlist.save();
-        res.redirect("/listing");
-      /*title: title,
-            description: description,
-            country: country,
-            location: location,
-            price: price*/
+app.post("/listing/create", validatelisting, wrapAsync(async (req, res, next) => {
+
+    let newlist = await listingModel.create(req.body.list);
+    newlist.save();
+    res.redirect("/listing");
+    /*title: title,
+          description: description,
+          country: country,
+          location: location,
+          price: price*/
 })
 );
 
@@ -53,7 +60,7 @@ app.get("/listing/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //update route
-app.put("/listing/:id", wrapAsync(async (req, res) => {
+app.put("/listing/:id", validatelisting, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let list = await listingModel.findByIdAndUpdate(id, { ...req.body.list });
     for (let field in req.body.list) {
@@ -83,13 +90,13 @@ app.get("/listing/:id", wrapAsync(async (req, res) => {
     res.render("listings/show.ejs", { list });
 }));
 
-app.all("/{*any}",(req,res,next)=>{ // Or use "/{*any}" for more explicit naming
-    next(new expressError(404,"Page Not Found"));
+app.all("/{*any}", (req, res, next) => { // Or use "/{*any}" for more explicit naming
+    next(new expressError(404, "Page Not Found"));
 });
 
 app.use((err, req, res, next) => {
-    let{statusCode=500,message="Something Went Wrong"}=err;
-   res.render("listings/error.ejs",{message});
+    let { statusCode = 500, message = "Something Went Wrong" } = err;
+    res.render("listings/error.ejs", { message });
 });
 /*app.get("/testlist", async (req, res) => {
     let newList =await  listingModel.create({
