@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./config/mongoose-connection");
 const listingModel = require("./models/listing");
+const reviewModel = require("./models/reviews");
 const joilistingSchema = require("./joischema");
 const path = require("path");
 const app = express();

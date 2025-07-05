@@ -11,16 +11,16 @@
     <form action="/listing/<%= list._id %>/delete?_method=DELETE" method="post">
         <button>Delete</button>
     </form>-->
-    <div class=" flex flex-wrap px-10 h-screen items-center justify-center">
+    <div class="w-full flex justify-center items-center text-3xl mt-3 font-semibold">
+        <%= list.title %>
+    </div>
+    <div class=" flex flex-wrap px-10 h-full items-start mt-5 justify-center">
 
-        <div class="card rounded-2xl overflow-hidden w-[700px] h-[80%] shadow-lg  mb-3">
-            <img src="<%=list.image.url %>"
-                class="w-[100%] h-80 object-cover object-center obj rounded-2xl" alt="picture">
+        <div class="card rounded-2xl overflow-hidden w-[700px] h-fit shadow-lg space-y-2 mb-3">
+            <img src="<%=list.image.url %>" class="w-[100%] h-80 object-cover object-center obj rounded-2xl"
+                alt="picture">
             <div class="p-4">
                 <!--<a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>-->
-                <p class="font-semibold">
-                    <%= list.title %>
-                </p>
                 <p>
                     <%= list.description %>
                 </p>
@@ -32,12 +32,29 @@
                 </p>
                 <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night</p><br>
                 <div class="flex gap-5">
-                    <a href="/listing/<%= list._id %>/edit"><button class="bg-black p-2 px-8 rounded hover:cursor-pointer hover:bg-white hover:text-black hover:border-1 text-white">Edit</button></a>
-                    
+                    <a href="/listing/<%= list._id %>/edit"><button
+                            class="bg-black p-2 px-8 rounded hover:cursor-pointer hover:bg-white hover:text-black hover:border-1 text-white">Edit</button></a>
+
                     <form action="/listing/<%= list._id %>/delete?_method=DELETE" method="post">
-                        <button class="bg-red-500 p-2 px-8 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">Delete</button>
+                        <button
+                            class="bg-red-500 p-2 px-8 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">Delete</button>
                     </form>
                 </div>
+            </div>
+            <hr>
+            <div class="review p-5 space-y-3">
+                <h1>Leave A Review</h1>
+                <form action="">
+                    <div>
+                        <label class="block" for="">Rate</label>
+                        <input type="range" min="1" max="5" id="rating" name="review[rate]">
+                    </div>
+                    <div>
+                        <label class="block" for="comment">Comment</label>
+                        <textarea class="border-1 w-full p-2" rows="4" name="" id="comment"></textarea>
+                    </div> <br>
+                    <input type="submit" class="bg-blue-500 p-2 px-8 rounded text-black hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">
+                </form>
             </div>
         </div>
     </div>

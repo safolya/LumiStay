@@ -1,3 +1,4 @@
+const { ref } = require("joi");
 const mongoose=require("mongoose");
 
 const listingSchema=new mongoose.Schema({
@@ -17,7 +18,13 @@ const listingSchema=new mongoose.Schema({
     },
     country:String,
     location:String,
-    price:Number
+    price:Number,
+    reviews:[
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"review"
+      }
+    ]
 });
 
 module.exports=mongoose.model("listing",listingSchema);
