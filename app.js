@@ -18,15 +18,7 @@ app.get("/", (req, res) => {
     res.send("hello");
 });
 
-const validatelisting = (req, res, next) => {
-    let {error} = joilistingSchema.validate(req.body);
-    if (error) {
-        let errmsg=error.details.map((el)=>el.message).join(",");
-        throw new expressError(400,errmsg);
-    }else{
-        next();
-    }
-};
+
 
 //index route
 app.get("/listing", wrapAsync(async (req, res) => {
@@ -38,6 +30,16 @@ app.get("/listing", wrapAsync(async (req, res) => {
 app.get("/listing/new", (req, res) => {
     res.render("listings/new.ejs");
 });
+
+const validatelisting = (req, res, next) => {
+    let {error} = joilistingSchema.validate(req.body);
+    if (error) {
+        let errmsg=error.details.map((el)=>el.message).join(",");
+        throw new expressError(400,errmsg);
+    }else{
+        next();
+    }
+};
 
 //create route
 app.post("/listing/create", validatelisting, wrapAsync(async (req, res, next) => {
@@ -91,6 +93,16 @@ app.get("/listing/:id", wrapAsync(async (req, res) => {
     res.render("listings/show.ejs", { list });
 }));
 
+//review(post route)
+app.post("/listing/:id/reviews",async(req,res)=>{
+    let list=await listingModel.findById(req.params.id);
+    let review=await reviewModel.create(req.body.review);
+    console.log(review);
+    list.reviews.push(review);
+    await list.save();
+    res.redirect("/listing/");
+});
+
 app.all("/{*any}", (req, res, next) => { // Or use "/{*any}" for more explicit naming
     next(new expressError(404, "Page Not Found"));
 });
@@ -99,6 +111,8 @@ app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something Went Wrong" } = err;
     res.render("listings/error.ejs", { message });
 });
+
+
 /*app.get("/testlist", async (req, res) => {
     let newList =await  listingModel.create({
         title: "My House",
@@ -109,4 +123,5 @@ app.use((err, req, res, next) => {
     });
     res.send(newList);
 })*/
+
 app.listen(3000);

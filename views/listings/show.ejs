@@ -44,14 +44,14 @@
             <hr>
             <div class="review p-5 space-y-3">
                 <h1>Leave A Review</h1>
-                <form action="">
+                <form action="/listing/<%= list._id %>/reviews" method="post">
                     <div>
                         <label class="block" for="">Rate</label>
                         <input type="range" min="1" max="5" id="rating" name="review[rate]">
                     </div>
                     <div>
                         <label class="block" for="comment">Comment</label>
-                        <textarea class="border-1 w-full p-2" rows="4" name="" id="comment"></textarea>
+                        <textarea class="border-1 w-full p-2" rows="4" name="review[comment]" id="comment" required></textarea>
                     </div> <br>
                     <input type="submit" class="bg-blue-500 p-2 px-8 rounded text-black hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">
                 </form>
