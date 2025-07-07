@@ -51,20 +51,39 @@
                     </div>
                     <div>
                         <label class="block" for="comment">Comment</label>
-                        <textarea class="border-1 w-full p-2" rows="4" name="review[comment]" id="comment" required></textarea>
+                        <textarea class="border-1 w-full p-2" rows="4" name="review[comment]" id="comment"
+                            required></textarea>
                     </div> <br>
-                    <input type="submit" class="bg-blue-500 p-2 px-8 rounded text-black hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">
+                    <input type="submit"
+                        class="bg-blue-500 p-2 px-8 rounded text-black hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">
                 </form>
             </div>
             <hr>
             <div class="p-5">
                 <h2 class="text-lg font-semibold">All Reviews</h2>
-                <ul>
-                    <% list.reviews.forEach(review => { %>
-                        <li><%= review.rate %>,<%= review.comment %></li>
-                        <% }); %>
-                    </ul><br>
+                <div class="flex flex-wrap gap-x-4">
+                    <% for (const review of list.reviews) {%>
+                    <div class=" p-5 w-[calc(50%-8px)] border-1 mb-2 rounded">
+                        <div class="group flex items-center">
+                            <div>
+                                <img class="h-12 w-12 shrink-0 rounded-full" src="..." alt="" />
+                            </div>
+                            <div class="ltr:ml-3 rtl:mr-3">
+                                <p class="text-gray-700 group-hover:text-gray-900 ...">Safolya</p>
+                                <p class="text-gray-500 group-hover:text-gray-700 ..."><%= review.createdAt %></p>
+                            </div>
+                        </div>
+                        <p><%= review.comment %></p><br>
+                        <p><%= review.rate %> stars</p>
+                        <form action="" method="post">
+                            <button  class="bg-red-500 p-2 px-4 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">delete</button>
+                        </form>
+                    </div>
+                <%} %>
                 </div>
+                
+                
+            </div>
         </div>
     </div>
     <%- include('../partials/footer.ejs') %>
