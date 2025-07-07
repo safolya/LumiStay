@@ -2,7 +2,7 @@ const express = require("express");
 const db = require("./config/mongoose-connection");
 const listingModel = require("./models/listing");
 const reviewModel = require("./models/reviews");
-const joilistingSchema = require("./joischema");
+const {joilistingSchema,reviewSchema} = require("./joischema");
 const path = require("path");
 const app = express();
 const methodOverride = require("method-override");
@@ -40,6 +40,18 @@ const validatelisting = (req, res, next) => {
         next();
     }
 };
+
+const validatereview = (req, res, next) => {
+    let {error} = reviewSchema.validate(req.body);
+    if (error) {
+        let errmsg=error.details.map((el)=>el.message).join(",");
+        throw new expressError(400,errmsg);
+    }else{
+        next();
+    }
+};
+
+
 
 //create route
 app.post("/listing/create", validatelisting, wrapAsync(async (req, res, next) => {
@@ -89,19 +101,19 @@ app.delete("/listing/:id/delete", wrapAsync(async (req, res) => {
 //show route
 app.get("/listing/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let list = await listingModel.findById(id);
+    let list = await listingModel.findById(id).populate("reviews");
     res.render("listings/show.ejs", { list });
 }));
 
 //review(post route)
-app.post("/listing/:id/reviews",async(req,res)=>{
+app.post("/listing/:id/reviews",wrapAsync(async(req,res)=>{
     let list=await listingModel.findById(req.params.id);
     let review=await reviewModel.create(req.body.review);
     console.log(review);
     list.reviews.push(review);
     await list.save();
-    res.redirect("/listing/");
-});
+    res.redirect(`/listing/${list._id}`);
+}));
 
 app.all("/{*any}", (req, res, next) => { // Or use "/{*any}" for more explicit naming
     next(new expressError(404, "Page Not Found"));

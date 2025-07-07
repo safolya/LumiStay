@@ -16,7 +16,7 @@
     </div>
     <div class=" flex flex-wrap px-10 h-full items-start mt-5 justify-center">
 
-        <div class="card rounded-2xl overflow-hidden w-[700px] h-fit shadow-lg space-y-2 mb-3">
+        <div class="card rounded-2xl overflow-hidden w-[700px] h-full shadow-lg space-y-2 mb-3">
             <img src="<%=list.image.url %>" class="w-[100%] h-80 object-cover object-center obj rounded-2xl"
                 alt="picture">
             <div class="p-4">
@@ -56,6 +56,15 @@
                     <input type="submit" class="bg-blue-500 p-2 px-8 rounded text-black hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">
                 </form>
             </div>
+            <hr>
+            <div class="p-5">
+                <h2 class="text-lg font-semibold">All Reviews</h2>
+                <ul>
+                    <% list.reviews.forEach(review => { %>
+                        <li><%= review.rate %>,<%= review.comment %></li>
+                        <% }); %>
+                    </ul><br>
+                </div>
         </div>
     </div>
     <%- include('../partials/footer.ejs') %>
