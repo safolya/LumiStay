@@ -75,7 +75,7 @@
                         </div>
                         <p><%= review.comment %></p><br>
                         <p><%= review.rate %> stars</p>
-                        <form action="" method="post">
+                        <form action="/listing/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
                             <button  class="bg-red-500 p-2 px-4 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">delete</button>
                         </form>
                     </div>
