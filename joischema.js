@@ -1,6 +1,6 @@
 const joi=require("joi");
 
-module.exports= listingSchema=joi.object({
+const joilistingSchema=joi.object({
     list: joi.object({
         title: joi.string().required(),
         description: joi.string().required(),
@@ -13,9 +13,14 @@ module.exports= listingSchema=joi.object({
     }).required()
 });
 
-module.exports= reviewSchema=joi.object({
+const reviewSchema=joi.object({
   review:joi.object({
   rate:joi.number().required().min(1).max(5),
   comment:joi.string().required(),  
   }).required()   
-})
+});
+
+module.exports = {
+    joilistingSchema, // Using shorthand for { joilistingSchema: joilistingSchema }
+    reviewSchema      // Using shorthand for { reviewSchema: reviewSchema }
+};
