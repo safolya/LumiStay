@@ -5,6 +5,7 @@ const reviewModel = require("./models/reviews");
 const listingRouter=require("./routes/listingRouter");
 const reviewRouter=require("./routes/reviewRouter")
 const session=require("express-session");
+const connectFlash=require("connect-flash");
 const {joilistingSchema,reviewSchema} = require("./joischema");
 const path = require("path");
 const app = express();
@@ -20,13 +21,29 @@ app.use(express.json());
 const sessionOptions={
     secret:"mysecert",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie:{
+        expires: Date.now()+7*24*60*60*1000,
+        maxAge: 7*24*60*60*1000,
+        httpOnly: true,
+    },
 }
-
-app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
     res.send("hello");
+});
+
+app.use(session(sessionOptions));
+app.use(connectFlash());
+
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    next();
+});
+
+app.use((req,res,next)=>{
+    res.locals.error = req.flash("error");
+    next();
 });
 
 
