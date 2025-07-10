@@ -4,6 +4,7 @@ const listingModel = require("./models/listing");
 const reviewModel = require("./models/reviews");
 const listingRouter=require("./routes/listingRouter");
 const reviewRouter=require("./routes/reviewRouter")
+const session=require("express-session");
 const {joilistingSchema,reviewSchema} = require("./joischema");
 const path = require("path");
 const app = express();
@@ -15,6 +16,14 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.json());
+
+const sessionOptions={
+    secret:"mysecert",
+    resave: false,
+    saveUninitialized: true
+}
+
+app.use(session(sessionOptions));
 
 app.get("/", (req, res) => {
     res.send("hello");
