@@ -64,6 +64,7 @@ router.put("/:id", validatelisting, wrapAsync(async (req, res) => {
 
     // Mongoose validation will run on .save() by default
     await list.save();
+    req.flash("success"," List updated successfully");
     res.redirect(`/listing/${id}`);
 }));
 
@@ -71,7 +72,7 @@ router.put("/:id", validatelisting, wrapAsync(async (req, res) => {
 router.delete("/:id/delete", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletelist = await listingModel.findByIdAndDelete(id);
-    req.flash("error","list deleted succesfully");
+    req.flash("success"," List deleted successfully");
     res.redirect("/listing");
 }));
 //show route
