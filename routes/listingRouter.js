@@ -47,7 +47,12 @@ router.post("/create", validatelisting, wrapAsync(async (req, res, next) => {
 router.get("/:id/edit", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let list = await listingModel.findById(id);
+    if(!list){
+        req.flash("error","list already deleted");
+        res.redirect("/listing");
+    }else{
     res.render("listings/edit.ejs", { list });
+    }
 }));
 
 //update route
@@ -66,6 +71,7 @@ router.put("/:id", validatelisting, wrapAsync(async (req, res) => {
     await list.save();
     req.flash("success"," List updated successfully");
     res.redirect(`/listing/${id}`);
+    
 }));
 
 //delete route
@@ -79,7 +85,12 @@ router.delete("/:id/delete", wrapAsync(async (req, res) => {
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let list = await listingModel.findById(id).populate("reviews");
-    res.render("listings/show.ejs", { list });
+    if(!list){
+        req.flash("error","list already deleted");
+        res.redirect("/listing");
+    }else{
+        res.render("listings/show.ejs", { list });
+    }
 }));
 
 module.exports=router;
