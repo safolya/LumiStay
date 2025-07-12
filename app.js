@@ -4,6 +4,7 @@ const listingModel = require("./models/listing");
 const reviewModel = require("./models/reviews");
 const listingRouter=require("./routes/listingRouter");
 const reviewRouter=require("./routes/reviewRouter")
+const userRouter=require("./routes/userRouter");
 const session=require("express-session");
 const connectFlash=require("connect-flash");
 const {joilistingSchema,reviewSchema} = require("./joischema");
@@ -53,17 +54,18 @@ app.use((req,res,next)=>{
     next();
 });
 
-app.get("/demouser",async(req,res)=>{
+/*app.get("/demouser",async(req,res)=>{
     let fakeuser=await userModel.create({
         email:"safolyamondal12345@gmail.com",
         username: "safolya12345",
     });
     let registeruser=await userModel.register(fakeuser,"helloworld");
     res.send(registeruser);
-});
+});*/
 
 app.use("/listing",listingRouter);
 app.use("/listing/:id/reviews",reviewRouter);
+app.use("/",userRouter);
 
 
 
