@@ -12,6 +12,9 @@ const app = express();
 const methodOverride = require("method-override");
 const wrapAsync = require("./utils/wrapAsync");
 const expressError = require("./utils/expressError");
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const userModel=require("./models/user");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -36,16 +39,33 @@ app.get("/", (req, res) => {
 app.use(session(sessionOptions));
 app.use(connectFlash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(userModel.authenticate()));
+
+passport.serializeUser(userModel.serializeUser());
+passport.deserializeUser(userModel.deserializeUser());
+
+
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
     next();
 });
 
-
+app.get("/demouser",async(req,res)=>{
+    let fakeuser=await userModel.create({
+        email:"safolyamondal12345@gmail.com",
+        username: "safolya12345",
+    });
+    let registeruser=await userModel.register(fakeuser,"helloworld");
+    res.send(registeruser);
+});
 
 app.use("/listing",listingRouter);
 app.use("/listing/:id/reviews",reviewRouter);
+
+
 
 
 app.all("/{*any}", (req, res, next) => { // Or use "/{*any}" for more explicit naming
