@@ -32,6 +32,7 @@
                     <%= list.location %>
                 </p>
                 <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night</p><br>
+                <% if (curruser && curruser._id.equals(list.owner._id)) { %>
                 <div class="flex gap-5">
                     <a href="/listing/<%= list._id %>/edit"><button
                             class="bg-black p-2 px-8 rounded hover:cursor-pointer hover:bg-white hover:text-black hover:border-1 text-white">Edit</button></a>
@@ -41,6 +42,7 @@
                             class="bg-red-500 p-2 px-8 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">Delete</button>
                     </form>
                 </div>
+                <% } %>
             </div>
             <hr>
             <div class="review p-5 space-y-3">
