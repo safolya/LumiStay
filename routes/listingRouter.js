@@ -5,7 +5,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const expressError = require("../utils/expressError");
 const reviewModel = require("../models/reviews");
 const {joilistingSchema,reviewSchema} = require("../joischema");
-const isloggedin = require("../middlewares/isloggedin");
+const {isloggedin} = require("../middlewares/isloggedin");
 
 
 const validatelisting = (req, res, next) => {
@@ -33,6 +33,7 @@ router.get("/new",isloggedin, (req, res) => {
 router.post("/create", isloggedin, validatelisting, wrapAsync(async (req, res, next) => {
 
     let newlist = await listingModel.create(req.body.list);
+    newlist.owner = req.user._id; // Set the owner to the currently logged-in user
     newlist.save();
     req.flash("success","New List added successfully");
     res.redirect("/listing");
@@ -85,7 +86,7 @@ router.delete("/:id/delete", isloggedin, wrapAsync(async (req, res) => {
 //show route
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let list = await listingModel.findById(id).populate("reviews");
+    let list = await listingModel.findById(id).populate("reviews").populate("owner");
     if(!list){
         req.flash("error","list already deleted");
         res.redirect("/listing");

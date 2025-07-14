@@ -1,4 +1,4 @@
-module.exports = isloggedin = (req, res, next) => {
+module.exports.isloggedin = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.redirectUrl = req.originalUrl;
         req.flash("error", "Login First");
@@ -7,7 +7,7 @@ module.exports = isloggedin = (req, res, next) => {
     next()
 };
 
-module.exports = savedUrl = (req, res, next) => {
+module.exports.savedUrl = (req, res, next) => {
     if (req.session.redirectUrl) {
         res.locals.redirectUrl = req.session.redirectUrl;
     }
