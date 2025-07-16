@@ -5,7 +5,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const expressError = require("../utils/expressError");
 const reviewModel = require("../models/reviews");
 const {joilistingSchema,reviewSchema} = require("../joischema");
-const {isloggedin} = require("../middlewares/isloggedin");
+const {isloggedin,ownerCheck} = require("../middlewares/isloggedin");
 
 
 const validatelisting = (req, res, next) => {
@@ -46,7 +46,7 @@ router.post("/create", isloggedin, validatelisting, wrapAsync(async (req, res, n
 );
 
 //edit route
-router.get("/:id/edit", isloggedin, wrapAsync(async (req, res) => {
+router.get("/:id/edit", isloggedin, ownerCheck, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let list = await listingModel.findById(id);
     if(!list){
@@ -58,7 +58,7 @@ router.get("/:id/edit", isloggedin, wrapAsync(async (req, res) => {
 }));
 
 //update route
-router.put("/:id", isloggedin, validatelisting, wrapAsync(async (req, res) => {
+router.put("/:id", isloggedin,ownerCheck, validatelisting, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let list = await listingModel.findByIdAndUpdate(id, { ...req.body.list });
     for (let field in req.body.list) {
@@ -69,6 +69,7 @@ router.put("/:id", isloggedin, validatelisting, wrapAsync(async (req, res) => {
         }
     }
 
+
     // Mongoose validation will run on .save() by default
     await list.save();
     req.flash("success"," List updated successfully");
@@ -77,7 +78,7 @@ router.put("/:id", isloggedin, validatelisting, wrapAsync(async (req, res) => {
 }));
 
 //delete route
-router.delete("/:id/delete", isloggedin, wrapAsync(async (req, res) => {
+router.delete("/:id/delete", isloggedin, ownerCheck, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletelist = await listingModel.findByIdAndDelete(id);
     req.flash("success"," List deleted successfully");

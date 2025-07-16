@@ -5,6 +5,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const expressError = require("../utils/expressError");
 const reviewModel = require("../models/reviews");
 const {joilistingSchema,reviewSchema} = require("../joischema");
+const {isloggedin,ownerCheck} = require("../middlewares/isloggedin");
 
 const validatereview = (req, res, next) => {
     let {error} = reviewSchema.validate(req.body);
@@ -17,9 +18,10 @@ const validatereview = (req, res, next) => {
 };
 
 //review(post route)
-router.post("/",wrapAsync(async(req,res)=>{
+router.post("/",isloggedin,wrapAsync(async(req,res)=>{
     let list=await listingModel.findById(req.params.id);
     let review=await reviewModel.create(req.body.review);
+    review.author=req.user._id; // Set the author to the currently logged-in user
     console.log(review);
     list.reviews.push(review);
     await list.save();
@@ -29,7 +31,7 @@ router.post("/",wrapAsync(async(req,res)=>{
 
 //delete review
 
-router.delete("/:reviewid",async(req,res)=>{
+router.delete("/:reviewid",isloggedin,async(req,res)=>{
     let {id,reviewid}=req.params;
     await listingModel.findByIdAndUpdate(id,{$pull: {reviews:reviewid}});
     await reviewModel.findByIdAndDelete(reviewid);
