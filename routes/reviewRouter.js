@@ -22,8 +22,9 @@ router.post("/",isloggedin,wrapAsync(async(req,res)=>{
     let list=await listingModel.findById(req.params.id);
     let review=await reviewModel.create(req.body.review);
     review.author=req.user._id; // Set the author to the currently logged-in user
-    console.log(review);
+    console.log(review.author);
     list.reviews.push(review);
+    await review.save(); // Save the review to the database
     await list.save();
     req.flash("success"," Review added successfully");
     res.redirect(`/listing/${list._id}`);
