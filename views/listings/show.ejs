@@ -21,7 +21,8 @@
                 alt="picture">
             <div class="p-4">
                 <!--<a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>-->
-                <p class="font-semibold">Owner: <%= list.owner.username %></p>
+                <p class="font-semibold">Owner: <%= list.owner.username %>
+                </p>
                 <p>
                     <%= list.description %>
                 </p>
@@ -33,17 +34,18 @@
                 </p>
                 <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night</p><br>
                 <% if(curruser && list.owner._id.equals(curruser._id)){ %>
-                <div class="flex gap-5">
-                    <a href="/listing/<%= list._id %>/edit"><button
-                            class="bg-black p-2 px-8 rounded hover:cursor-pointer hover:bg-white hover:text-black hover:border-1 text-white">Edit</button></a>
+                    <div class="flex gap-5">
+                        <a href="/listing/<%= list._id %>/edit"><button
+                                class="bg-black p-2 px-8 rounded hover:cursor-pointer hover:bg-white hover:text-black hover:border-1 text-white">Edit</button></a>
 
-                    <form action="/listing/<%= list._id %>/delete?_method=DELETE" method="post">
-                        <button
-                            class="bg-red-500 p-2 px-8 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">Delete</button>
-                    </form>
-                </div>
-                <% } %>
+                        <form action="/listing/<%= list._id %>/delete?_method=DELETE" method="post">
+                            <button
+                                class="bg-red-500 p-2 px-8 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
             </div>
+            <% if(curruser){ %>
             <hr>
             <div class="review p-5 space-y-3">
                 <h1>Leave A Review</h1>
@@ -61,31 +63,44 @@
                         class="bg-blue-500 p-2 px-8 rounded text-black hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">
                 </form>
             </div>
+            <% } %>
             <hr>
             <div class="p-5">
                 <h2 class="text-lg font-semibold">All Reviews</h2>
                 <div class="flex flex-wrap gap-x-4">
                     <% for (const review of list.reviews) {%>
-                    <div class=" p-5 w-[calc(50%-8px)] border-1 mb-2 rounded">
-                        <div class="group flex items-center">
+                        <div class=" p-5 w-[calc(50%-8px)] border-1 mb-2 rounded">
+                            <div class="group flex items-center">
+                                <div>
+                                    <img class="h-12 w-12 shrink-0 rounded-full" src="..." alt="" />
+                                </div>
+                                <div class="ltr:ml-3 rtl:mr-3">
+                                    <p class="text-gray-700 group-hover:text-gray-900 ...">Safolya</p>
+                                    <p class="text-gray-500 group-hover:text-gray-700 ...">
+                                        <%= review.createdAt %>
+                                    </p>
+                                </div>
+                            </div>
+                            <p>
+                                <%= review.comment %>
+                            </p><br>
+                            <p>
+                                <%= review.rate %> stars
+                            </p>
+                            <% if(curruser && review.author._id.equals(curruser._id)){ %>
                             <div>
-                                <img class="h-12 w-12 shrink-0 rounded-full" src="..." alt="" />
+                                <form action="/listing/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                    method="post">
+                                    <button
+                                        class="bg-red-500 p-2 px-4 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">delete</button>
+                                </form>
                             </div>
-                            <div class="ltr:ml-3 rtl:mr-3">
-                                <p class="text-gray-700 group-hover:text-gray-900 ...">Safolya</p>
-                                <p class="text-gray-500 group-hover:text-gray-700 ..."><%= review.createdAt %></p>
-                            </div>
+                            <% } %>
                         </div>
-                        <p><%= review.comment %></p><br>
-                        <p><%= review.rate %> stars</p>
-                        <form action="/listing/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
-                            <button  class="bg-red-500 p-2 px-4 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">delete</button>
-                        </form>
-                    </div>
-                <%} %>
+                        <%} %>
                 </div>
-                
-                
+
+
             </div>
         </div>
     </div>
