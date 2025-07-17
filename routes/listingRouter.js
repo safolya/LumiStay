@@ -87,7 +87,12 @@ router.delete("/:id/delete", isloggedin, ownerCheck, wrapAsync(async (req, res) 
 //show route
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let list = await listingModel.findById(id).populate("reviews").populate("owner");
+    let list = await listingModel.findById(id).populate({
+        path: "reviews",
+        populate: {
+            path: "author"
+        }
+    }).populate("owner");
     if(!list){
         req.flash("error","list already deleted");
         res.redirect("/listing");
