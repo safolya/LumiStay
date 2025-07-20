@@ -1,13 +1,13 @@
 <%- include('../partials/header.ejs') %>
     <h1 class="text-3xl font-semibold p-3 ml-46">Create Your New List</h1>
     <div class="w-full h-screen flex px-50 items-center ">
-        <form action="/listing/create" id="signupForm"  class="w-full" method="post">
+        <form action="/listing/create" id="signupForm" enctype="multipart/form-data" class="w-full" method="post">
 
             <div>
                 <label class="block text-2xl font-semibold" for="title">Title</label>
                 <input type="text" id="title" required
                     class="rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors
-                    p-2 border-1 shadow h-10" name="list[title]" placeholder="Title">
+                    p-2 border-gray-200 shadow h-10" name="list[title]" placeholder="Title">
 
                 <div class="error-message hidden mt-1 text-sm text-red-600"></div>
                 <div class="success-message hidden mt-1 text-sm text-green-600"></div>
@@ -18,7 +18,7 @@
 
             <div>
                 <label class="block text-2xl font-semibold" for="description">Description</label>
-                <textarea name="list[description]" id="description" required class="rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors w-full p-2 border-1 shadow"
+                <textarea name="list[description]" id="description" required class="rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors w-full p-2 border-gray-200 shadow"
                     placeholder="Description"></textarea>
 
                 <div class="error-message hidden mt-1 text-sm text-red-600"></div>
@@ -31,7 +31,7 @@
 
                 <div>
                     <label class="block text-2xl font-semibold" for="country">Price</label>
-                    <input type="text" name="list[price]" required id="price" class="rounded w-[300px] p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    <input type="text" name="list[price]" required id="price" class="rounded w-[300px] p-2 border-gray-200 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                         placeholder="1200">
 
                     <div class="error-message hidden mt-1 text-sm text-red-600"></div>
@@ -43,7 +43,7 @@
 
                 <div>
                     <label class="block text-2xl font-semibold" for="price">Country</label>
-                    <input type="text" min="0" name="list[country]" required id="country" class="rounded w-[780px] p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    <input type="text" min="0" name="list[country]" required id="country" class="rounded-lg shadow-sm w-[780px] p-2 border-gray-200  h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                         placeholder="India">
 
                         <div class="error-message hidden mt-1 text-sm text-red-600"></div>
@@ -55,7 +55,7 @@
 
             <br>
 
-            <div>
+            <!-- <div>
                 <label class="block text-2xl font-semibold" for="image">Image</label>
                 <input type="text" name="list[image][url]"  id="image" class="rounded w-full p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="Image link">
@@ -63,13 +63,22 @@
                     <div class="error-message hidden mt-1 text-sm text-red-600"></div>
                 <div class="success-message hidden mt-1 text-sm text-green-600"></div>
 
-            </div>
+            </div>-->
+            
+  <label for="file-input" class="sr-only">Choose file</label>
+  <input type="file" name="list[image][url]" id="file-input" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none 
+    file:bg-gray-50 file:border-0
+    file:me-4
+    file:py-3 file:px-2
+     ">
+
+
 
             <br>
 
             <div>
                 <label class="block text-2xl font-semibold" for="location">Location</label>
-                <input type="text" name="list[location]" required id="location" class="rounded w-full p-2 border-1 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                <input type="text" name="list[location]" required id="location" class="rounded w-full p-2 border-gray-200 shadow h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="Delhi">
 
                     <div class="error-message hidden mt-1 text-sm text-red-600"></div>

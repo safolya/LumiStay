@@ -9,6 +9,8 @@ const {isloggedin,ownerCheck} = require("../middlewares/isloggedin");
 const listingContoller = require("../controllers/listing");
 
 
+
+
 const validatelisting = (req, res, next) => {
     let {error} = joilistingSchema.validate(req.body);
     if (error) {

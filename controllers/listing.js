@@ -1,18 +1,20 @@
 const { model } = require("mongoose");
 const listingModel = require("../models/listing");
+const express=require("express");
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 module.exports.index=async (req, res) => {
     const alllistings = await listingModel.find({});
     res.render("listings/index.ejs", { alllistings });
 }
 
-module.exports.create=async (req, res, next) => {
-
+module.exports.create=upload.single('list[image][url]'),async (req, res, next) => {
     let newlist = await listingModel.create(req.body.list);
+    console.log(req.file);
     newlist.owner = req.user._id; // Set the owner to the currently logged-in user
     newlist.save();
     req.flash("success","New List added successfully");
-    res.redirect("/listing");
     /*title: title,
           description: description,
           country: country,
