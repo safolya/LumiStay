@@ -50,4 +50,65 @@ router.get("/logout", (req, res, next) => {
   });
 })
 
+router.get("/profile",isloggedin,async (req,res)=>{
+  const user= await userModel.findById(req.user._id);
+  res.render("user/profile.ejs",{user});
+});
+
+router.put("/profile", isloggedin, async (req, res) => {
+  try {
+    // 1. Find the user in the database
+    const user = await userModel.findById(req.user._id);
+
+    // 2. Update username and email only if they were provided in the form
+      user.username = req.body.username ? req.body.username : user.username;
+
+    if (req.body.email) {
+      user.email = req.body.email;
+    }
+  if (req.file) {
+      user.profilePic = req.file.buffer.toString("base64");
+    }
+
+    // 4. Save the updated user object
+    await user.save();
+   req.flash("success", "Profile updated successfully");
+     res.redirect("/profile");
+  } catch (error) {
+    console.log(error);
+    req.flash("error", "There was an error updating your profile.");
+    res.redirect("/profile");
+  }
+});
+
 module.exports = router;
+
+// try {
+//     // 1. Find the user in the database
+//     const user = await userModel.findById(req.user._id);
+
+//     // 2. Update username and email only if they were provided in the form
+//     if (req.body.username) {
+//       user.username = req.body.username;
+//     }
+//     if (req.body.email) {
+//       user.email = req.body.email;
+//     }
+
+//     // 3. Update profile picture only if a new file was uploaded
+//     if (req.file) {
+//       // It's good practice to include the MIME type for browser compatibility
+//       user.profilePic = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+//     }
+
+//     // 4. Save the updated user object
+//     await user.save();
+
+//     req.flash("success", "Profile updated successfully");
+//     res.redirect("/profile");
+
+//   } catch (error) {
+//     console.error("Profile update failed:", error);
+//     req.flash("error", "There was an error updating your profile.");
+//     res.redirect("/profile");
+//   }
