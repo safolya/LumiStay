@@ -58,7 +58,7 @@ router.get("/profile", isloggedin, async (req, res) => {
   res.render("user/profile.ejs", { user });
 });
 
-router.put("/profile/", isloggedin, upload.single('profilePic'), async (req, res) => {
+router.post("/profile/", isloggedin, upload.single('profilePic'), async (req, res) => {
   try {
     // 1. Find the user in the database
     const user = await userModel.findById(req.user._id);
