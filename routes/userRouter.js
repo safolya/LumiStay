@@ -5,7 +5,14 @@ const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 const { isloggedin, savedUrl } = require("../middlewares/isloggedin");
 const multer  = require('multer')
-const storage = multer.memoryStorage(); // Use memory storage for multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+});
 const upload = multer({ storage })
 
 router.get("/signup", (req, res) => {
@@ -80,7 +87,13 @@ router.post("/profile/", isloggedin, upload.single('profilePic'), async (req, re
     }
 
     if (req.file) {
-      user.profilePic = req.file.buffer.toString("base64") || user.profilePic;
+      console.log("File uploaded:", req.file);
+      user.profilePic = {
+        filename: req.file.originalname,
+        originalName: req.file.originalname,
+        path: req.file.path,
+        size: req.file.size
+      };
     }
 
     // 4. Save the updated user object

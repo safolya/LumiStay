@@ -1,18 +1,18 @@
 const { required } = require("joi");
-const mongoose=require("mongoose");
-const passportLocalMongoose=require("passport-local-mongoose");
+const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 
-const userSchema=new mongoose.Schema({
-    email:{
+const userSchema = new mongoose.Schema({
+    email: {
         type: String,
         required: true
     },
-    profilePic:{
-        type: String,
-        required: true
-    }
-});
+    profilePic: {
+        type: {
+             String,
+    },
+}});
 
 userSchema.plugin(passportLocalMongoose);
 
-module.exports=mongoose.model("user",userSchema);
+module.exports = mongoose.model("user", userSchema);
