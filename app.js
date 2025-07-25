@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== "production") {
+    // Load environment variables from .env file
+    require("dotenv").config();
+}
 const express = require("express");
 const db = require("./config/mongoose-connection");
 const listingModel = require("./models/listing");
