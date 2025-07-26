@@ -11,11 +11,24 @@ module.exports.index=async (req, res) => {
 }
 
 module.exports.create=async (req, res, next) => {
-    let newlist = await listingModel.create(req.body.list);
-    console.log(req.file);
-    newlist.owner = req.user._id; // Set the owner to the currently logged-in user
-    newlist.save();
-    req.flash("success","New List added successfully");
+    try {
+        if (!req.file) {
+            req.flash("error", "Please upload an image");
+            return res.redirect("/listing/new");
+        }
+        let url = req.file.path;
+        let filename = req.file.filename;
+        let newlist = new listingModel(req.body.list);
+        newlist.owner = req.user._id;
+        newlist.image = { url, filename };
+        await newlist.save();
+        req.flash("success", "New List added successfully");
+        return res.redirect("/listing");
+    } catch (error) {
+        console.error(error);
+        req.flash("error", "Error creating listing: " + error.message);
+        return res.redirect("/listing/new");
+    }
     /*title: title,
           description: description,
           country: country,

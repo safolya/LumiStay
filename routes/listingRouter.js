@@ -32,8 +32,8 @@ router.get("/new",isloggedin, (req, res) => {
 });
 
 
-//create route
-router.post("/create", isloggedin, validatelisting, upload.single('list[image]'), wrapAsync(listingContoller.create));
+//create routevalidatelisting,
+router.post("/create", isloggedin, upload.single('list[image]'), wrapAsync(listingContoller.create));
 
 //edit route
 router.get("/:id/edit", isloggedin, ownerCheck, wrapAsync(listingContoller.edit));
