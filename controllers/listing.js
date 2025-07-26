@@ -2,7 +2,7 @@ const { model } = require("mongoose");
 const listingModel = require("../models/listing");
 const express=require("express");
 const multer  = require('multer')
-const storage = multer.memoryStorage(); // Use memory storage for multer
+const {storage} = require("../cloudinaryconfig"); // Use memory storage for multer
 const upload = multer({ storage })
 
 module.exports.index=async (req, res) => {
@@ -10,7 +10,7 @@ module.exports.index=async (req, res) => {
     res.render("listings/index.ejs", { alllistings });
 }
 
-module.exports.create=upload.single('list[image][url]'),async (req, res, next) => {
+module.exports.create=async (req, res, next) => {
     let newlist = await listingModel.create(req.body.list);
     console.log(req.file);
     newlist.owner = req.user._id; // Set the owner to the currently logged-in user

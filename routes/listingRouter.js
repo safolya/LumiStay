@@ -7,6 +7,9 @@ const reviewModel = require("../models/reviews");
 const {joilistingSchema,reviewSchema} = require("../joischema");
 const {isloggedin,ownerCheck} = require("../middlewares/isloggedin");
 const listingContoller = require("../controllers/listing");
+const multer  = require('multer')
+const {storage} = require("../cloudinaryconfig"); // Use memory storage for multer
+const upload = multer({ storage })
 
 
 
@@ -30,7 +33,7 @@ router.get("/new",isloggedin, (req, res) => {
 
 
 //create route
-router.post("/create", isloggedin, validatelisting, wrapAsync(listingContoller.create));
+router.post("/create", isloggedin, validatelisting, upload.single('list[image]'), wrapAsync(listingContoller.create));
 
 //edit route
 router.get("/:id/edit", isloggedin, ownerCheck, wrapAsync(listingContoller.edit));
