@@ -1,6 +1,6 @@
 <%- include('../partials/header.ejs') %>
     <h1 class="text-3xl font-semibold p-3 ml-46">Edit your Post</h1>
-    <div class="w-full h-screen flex px-50 items-center ">
+    <div class="w-full h-screen flex px-50 mt-20 mb-20  items-center ">
         <form action="/listing/<%= list._id %>?_method=PUT" method="post" enctype="multipart/form-data">
             <div>
                 <label class="block text-2xl font-semibold" for="title">Title</label>
@@ -33,6 +33,11 @@
             </div>
 
             <br>
+
+            <div class="originalimage">
+                <label class="block text-2xl font-semibold" for="image">Original Image</label>
+                <img src="<%=list.image.url%>" alt="Image" class="w-[300px] object-cover rounded">
+            </div><br>
 
             <div>
                 <label class="block text-2xl font-semibold" for="image">Image</label>
