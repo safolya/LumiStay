@@ -71,21 +71,26 @@
 
                     <div class="hidden lg:flex lg:items-center lg:space-x-10">
                         <% if(!curruser) { %>
-                            <a href="/signup"
-                                class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
-                                Sign up </a>
+                                <a href="/signup"
+                                    class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
+                                    Sign up </a>
+                            
+                                <a href="/login"
+                                    class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
+                                    Sign in </a>
+                          
 
-                            <a href="/login"
-                                class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
-                                Sign in </a>
                             <% } %>
                                 <% if(curruser) { %>
                                     <a href="/logout"
                                         class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
                                         Logout </a>
                                     <% } %>
-                                       
-                                        <a href="/profile"><i class="fa-solid fa-user"></i></a>
+                                        <div
+                                            class="w-10 h-10 justify-center bg-gray-500 flex items-center hover:bg-white hover:cursor-pointer rounded-full">
+                                            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+                                        </div>
+
                     </div>
                 </nav>
             </div>

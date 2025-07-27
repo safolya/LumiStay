@@ -40,7 +40,7 @@ const sessionOptions={
 }
 
 app.get("/", (req, res) => {
-    res.send("hello");
+    res.render("listings/first.ejs");
 });
 
 app.use(session(sessionOptions));
