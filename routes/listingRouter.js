@@ -32,14 +32,14 @@ router.get("/new",isloggedin, (req, res) => {
 });
 
 
-//create routevalidatelisting,
+//create route
 router.post("/create", isloggedin, upload.single('list[image]'), wrapAsync(listingContoller.create));
 
 //edit route
 router.get("/:id/edit", isloggedin, ownerCheck, wrapAsync(listingContoller.edit));
 
 //update route
-router.put("/:id", isloggedin,ownerCheck, validatelisting, wrapAsync(listingContoller.update));
+router.put("/:id", isloggedin, ownerCheck, upload.single('list[image]'), wrapAsync(listingContoller.update));
 
 //delete route
 router.delete("/:id/delete", isloggedin, ownerCheck, wrapAsync(listingContoller.delete));
