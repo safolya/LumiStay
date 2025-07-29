@@ -1,8 +1,55 @@
 <%- include('../partials/header.ejs') %>
-    <h1 class="text-2xl md:text-3xl font-semibold text-center mb-8">All Listings</h1>
+    <!-- <h1 class="text-2xl md:text-3xl font-semibold text-center mb-8">All Listings</h1> -->
     <!--<form action="/listing/new" method="get">
         <button>Click Here</button>
     </form>-->
+<div class="fliters flex items-center text-center gap-10 justify-center flex-wrap">
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+    </div>
+
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Iconic Cities</p>
+    </div>
+
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-mountain"></i></div>
+        <p>Mountains</p>
+    </div>
+
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Amazing Pools</p>
+    </div>
+ 
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-campground"></i></div>
+        <p>Camping</p>
+    </div>
+
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-snowflake"></i></div>
+        <p>Arctic</p>
+    </div>
+
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-chess-rook"></i></div>
+        <p>Castle</p>
+    </div>
+
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+    </div>
+
+    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+        <div><i class="fa-solid fa-cow"></i></div>
+        <p>Farm</p>
+    </div>
+</div>
+
     <div class="p-10 flex flex-wrap px-10 m-10 gap-10 items-center justify-center">
         <% alllistings.forEach(list => {%>
             <a href="/listing/<%= list._id %>">
