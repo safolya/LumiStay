@@ -33,13 +33,12 @@
             <div class="px-4 mx-auto sm:px-6 lg:px-8">
                 <nav class="relative flex items-center justify-between h-16 lg:h-20">
                     <div class="hidden lg:flex lg:items-center lg:space-x-10">
-                        <a href="/" title="" class="text-base font-medium text-black"> Home </a>
+
 
                         <a href="/listing" title="" class="text-base font-medium text-black"> All Listings </a>
 
                         <a href="/listing/new" title="" class="text-base font-medium text-black"> New Listing </a>
 
-                        <a href="#" title="" class="text-base font-medium text-black"> Pricing </a>
                     </div>
 
                     <div class="lg:absolute lg:-translate-x-1/2 lg:inset-y-5 lg:left-1/2">
@@ -85,11 +84,13 @@
                                     <a href="/logout"
                                         class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
                                         Logout </a>
-                                    <% } %>
+
                                         <div
                                             class="w-10 h-10 justify-center bg-gray-500 flex items-center hover:bg-white hover:cursor-pointer rounded-full">
                                             <a href="/profile"><i class="fa-solid fa-user"></i></a>
                                         </div>
+                                    <% } %>
+                                        
 
                     </div>
                 </nav>
@@ -114,13 +115,13 @@
 
                 <div class="mt-6">
                     <div class="flex flex-col space-y-2">
-                        <a href="#" title=""
+                        <a href="/listings" title=""
                             class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
-                            Features </a>
+                            All Listings </a>
 
-                        <a href="#" title=""
+                        <a href="/listing/new" title=""
                             class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
-                            Solutions </a>
+                            New Listings </a>
 
                         <a href="#" title=""
                             class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
