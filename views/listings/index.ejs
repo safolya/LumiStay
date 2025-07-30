@@ -3,70 +3,92 @@
     <!--<form action="/listing/new" method="get">
         <button>Click Here</button>
     </form>-->
-<div class="fliters flex items-center text-center gap-10">
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
-    </div>
-
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-mountain-city"></i></div>
-        <p>Iconic Cities</p>
-    </div>
-
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-mountain"></i></div>
-        <p>Mountains</p>
-    </div>
-
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p>Amazing Pools</p>
-    </div>
- 
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-campground"></i></div>
-        <p>Camping</p>
-    </div>
-
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-snowflake"></i></div>
-        <p>Arctic</p>
-    </div>
-
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-chess-rook"></i></div>
-        <p>Castle</p>
-    </div>
-
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
-    </div>
-
-    <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
-        <div><i class="fa-solid fa-cow"></i></div>
-        <p>Farm</p>
-    </div>
-</div>
-
-    <div class="p-10 flex flex-wrap px-10 m-10 gap-10 items-center justify-center">
-        <% alllistings.forEach(list => {%>
-            <a href="/listing/<%= list._id %>">
-            <div class="card rounded-2xl overflow-hidden w-[250px]  shadow-lg  mb-3">
-                <img src="<%=list.image.url %>" class="w-[100%] h-48 object-cover object-center rounded-2xl hover:opacity-50" alt="picture">
-                <div class="p-4">
-                    <!--<a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>-->
-                    <p><%= list.title %></p>
-                    <p>&#8377;<%=  list.price.toLocaleString("en-IN") %>/night</p>
-                </div>
+    <div class="w-full px-10 text-center flex items-center justify-between">
+        <div class="fliters flex items-center text-center gap-10 p-5">
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
             </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-person-swimming"></i></div>
+                <p>Amazing Pools</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-snowflake"></i></div>
+                <p>Arctic</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-chess-rook"></i></div>
+                <p>Castle</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-cow"></i></div>
+                <p>Farm</p>
+            </div>
+        </div>
+
+        <div class="hs-tooltip flex items-center gap-x-3 bg-gray-400 p-4 rounded-3xl">
+            <label for="hs-tooltip-example" class="text-sm text-white">Display Total before Taxes</label>
+            <label for="hs-tooltip-example" class="hs-tooltip-toggle relative inline-block w-11 h-6 cursor-pointer">
+                <input type="checkbox" id="hs-tooltip-example" class="peer sr-only">
+                <span
+                    class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600 dark:bg-neutral-700 dark:peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                <span
+                    class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
+            </label>
+            
+            <!-- <div class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700"
+                role="tooltip">
+                Enable push notifications
+            </div> -->
+        </div>
+
+    </div>
+
+    <div class="p-4 flex flex-wrap px-10 gap-10 items-center justify-around">
+        <% alllistings.forEach(list=> {%>
+            <a href="/listing/<%= list._id %>">
+                <div class="card rounded-2xl overflow-hidden w-[300px]  shadow-lg  mb-3">
+                    <img src="<%=list.image.url %>"
+                        class="w-[100%] h-48 object-cover object-center rounded-2xl hover:opacity-50" alt="picture">
+                    <div class="p-4">
+                        <!--<a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>-->
+                        <p>
+                            <%= list.title %>
+                        </p>
+                        <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night</p>
+                    </div>
+                </div>
             </a>
             <%}); %>
-        </div>
-<%- include('../partials/footer.ejs') %>
+    </div>
+    <%- include('../partials/footer.ejs') %>
 
-<!-- <div>
+        <!-- <div>
 <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40 max-w-sm mx-auto mt-24">
     <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
         alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
