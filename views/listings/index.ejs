@@ -3,7 +3,7 @@
     <!--<form action="/listing/new" method="get">
         <button>Click Here</button>
     </form>-->
-    <div class="w-full px-10 text-center flex items-center justify-between">
+    <div class="w-full px-10 text-center flex items-center">
         <div class="fliters flex items-center text-center gap-10 p-5">
             <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
                 <div><i class="fa-solid fa-fire"></i></div>
@@ -46,17 +46,22 @@
             </div>
 
             <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
+                <div><i class="fa-solid fa-landmark-dome"></i></div>
+                <p>Dome</p>
+            </div>
+
+            <div class="filter opacity-60 hover:opacity-100 hover:cursor-pointer">
                 <div><i class="fa-solid fa-cow"></i></div>
                 <p>Farm</p>
             </div>
         </div>
 
-        <div class="hs-tooltip flex items-center gap-x-3 bg-gray-400 p-4 rounded-3xl">
-            <label for="hs-tooltip-example" class="text-sm text-white">Display Total before Taxes</label>
+        <div class="hs-tooltip flex items-center ml-5 gap-3 border-1 p-4 rounded-3xl">
+            <label for="hs-tooltip-example" class="text-sm text-black">Display Total before Taxes</label>
             <label for="hs-tooltip-example" class="hs-tooltip-toggle relative inline-block w-11 h-6 cursor-pointer">
                 <input type="checkbox" id="hs-tooltip-example" class="peer sr-only">
                 <span
-                    class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600 dark:bg-neutral-700 dark:peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                    class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600 dark:peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
                 <span
                     class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
             </label>
@@ -80,12 +85,27 @@
                         <p>
                             <%= list.title %>
                         </p>
-                        <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night</p>
+                        <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night &nbsp; <i class="tax hidden">+18% GST</i>
+                        </p>
+                        
                     </div>
                 </div>
             </a>
             <%}); %>
     </div>
+
+    <script>
+        document.getElementById("hs-tooltip-example").addEventListener("click", function() {
+            let tax=document.querySelectorAll(".tax");
+            tax.forEach((el) => {   
+                if (el.style.display != "inline") {
+                    el.style.display = "inline";
+                } else {
+                    el.style.display = "none";
+                }
+            });
+        });
+    </script>
     <%- include('../partials/footer.ejs') %>
 
         <!-- <div>

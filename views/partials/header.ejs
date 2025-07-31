@@ -10,7 +10,19 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
-
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('#mobile-menu');
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                menu.classList.add('block');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('block');
+            }
+        }
+    </script>
 </head>
 
 <body class="flex flex-col min-h-[100vh]">
@@ -28,48 +40,70 @@
         </div>
     </nav>-->
     <header class="sticky top-0 z-10">
-        <!-- lg+ -->
-        <div class="bg-gray-100 border-b border-gray-200 ">
-            <div class="px-4 mx-auto sm:px-6 lg:px-8">
-                <nav class="relative flex items-center justify-between h-16 lg:h-20">
-                    <div class="hidden lg:flex lg:items-center lg:space-x-10">
-
-
-                        <a href="/listing" title="" class="text-base font-medium text-black"> Explore </a>
-
-                        <a href="/listing/new" title="" class="text-base font-medium text-black"> List your Home </a>
-
+        <nav class="bg-gray-100 border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="/listing" class="flex">
+                            <img class="w-auto h-8 lg:h-10" src="/Logo/file.svg" alt="LumiStay" />
+                        </a>
                     </div>
 
-                    <div class="lg:absolute lg:-translate-x-1/2 lg:inset-y-5 lg:left-1/2">
-                        <div class="flex-shrink-0">
-                            <a href="/listing" title="" class="flex">
-                                <img class="w-auto h-8 lg:h-10"
-                                    src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
-                            </a>
-                        </div>
-                    </div>
-
-                    <button type="button"
-                        class="flex items-center justify-center ml-auto text-white bg-black rounded-full w-9 h-9 lg:hidden">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                    </button>
-
-                    <button type="button"
-                        class="inline-flex p-2 ml-5 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
-
-                    <div class="hidden lg:flex lg:items-center lg:space-x-10">
+                    <!-- Desktop Navigation -->
+                    <div class="hidden lg:flex lg:items-center lg:space-x-8">
+                        <a href="/listing" class="text-base font-medium text-gray-900 hover:text-gray-700">Explore</a>
+                        <a href="/listing/new" class="text-base font-medium text-gray-900 hover:text-gray-700">List your Home</a>
+                        
                         <% if(!curruser) { %>
+                            <a href="/signup" class="text-base font-medium text-gray-900 hover:text-gray-700">Sign up</a>
+                            <a href="/login" class="text-base font-medium text-gray-900 hover:text-gray-700">Sign in</a>
+                        <% } %>
+                        
+                        <% if(curruser) { %>
+                            <a href="/logout" class="text-base font-medium text-gray-900 hover:text-gray-700">Logout</a>
+                            <a href="/profile" class="w-10 h-10 flex justify-center items-center bg-gray-500 hover:bg-gray-400 rounded-full">
+                                <i class="fa-solid fa-user text-white"></i>
+                            </a>
+                        <% } %>
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <div class="flex items-center lg:hidden">
+                        <button type="button" 
+                                onclick="toggleMenu()"
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
+                            <span class="sr-only">Open main menu</span>
+                            <!-- Hamburger icon -->
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div class="hidden lg:hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white">
+                    <a href="/listing" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-200 rounded-md">Explore</a>
+                    <a href="/listing/new" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-200 rounded-md">List your Home</a>
+                    
+                    <% if(!curruser) { %>
+                        <a href="/signup" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-200 rounded-md">Sign up</a>
+                        <a href="/login" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-200 rounded-md">Sign in</a>
+                    <% } %>
+                    
+                    <% if(curruser) { %>
+                        <a href="/profile" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-200 rounded-md">Profile</a>
+                        <a href="/logout" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-200 rounded-md">Logout</a>
+                    <% } %>
+                </div>
+            </div>
+        </nav>
+
+                    <div class="hidden lg:flex lg:items-center lg:space-x-10">
+                        <!-- <% if(!curruser) { %>
                                 <a href="/signup"
                                     class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
                                     Sign up </a>
@@ -79,8 +113,8 @@
                                     Sign in </a>
                           
 
-                            <% } %>
-                                <% if(curruser) { %>
+                            <% } %> -->
+                                <!-- <% if(curruser) { %>
                                     <a href="/logout"
                                         class="py-2 text-base font-medium text-black transition-all duration-200 focus:text-blue-600">
                                         Logout </a>
@@ -89,7 +123,7 @@
                                             class="w-10 h-10 justify-center bg-gray-500 flex items-center hover:bg-white hover:cursor-pointer rounded-full">
                                             <a href="/profile"><i class="fa-solid fa-user"></i></a>
                                         </div>
-                                    <% } %>
+                                    <% } %> -->
                                         
 
                     </div>
@@ -98,7 +132,7 @@
         </div>
 
         <!-- xs to lg -->
-        <nav class="py-4 bg-white lg:hidden">
+        <!-- <nav class="py-4 bg-white lg:hidden">
             <div class="px-4 mx-auto sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between">
                     <p class="text-sm font-semibold tracking-widest text-gray-400 uppercase">Menu</p>
@@ -152,7 +186,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav> -->
     </header>
 
     <div class="container flex-[1]">
