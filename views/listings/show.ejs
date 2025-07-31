@@ -11,52 +11,61 @@
     <form action="/listing/<%= list._id %>/delete?_method=DELETE" method="post">
         <button>Delete</button>
     </form>-->
-    <div class="w-full flex justify-center items-center text-3xl mt-3 font-semibold">
-        <%= list.title %>
-    </div>
-    <div class=" flex flex-wrap px-10 h-full items-start mt-5 justify-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8">
+            <%= list.title %>
+        </h1>
+        
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="relative aspect-video sm:aspect-[16/9] lg:aspect-[16/8]">
+                    <img src="<%=list.image.url %>" 
+                        class="absolute inset-0 w-full h-full object-cover"
+                        alt="<%= list.title %>">
+                </div>
 
-        <div class="card rounded-2xl overflow-hidden w-[700px] h-full shadow-lg space-y-2 mb-3">
-            <img src="<%=list.image.url %>" class="w-[100%] h-80 object-cover object-center obj rounded-2xl"
-                alt="picture">
-            <div class="p-4">
-                <!--<a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>-->
-                <p class="font-semibold">Owner: <%= list.owner.username %>
-                </p>
-                <p>
-                    <%= list.description %>
-                </p>
-                <p>
-                    <%= list.country %>
-                </p>
-                <p>
-                    <%= list.location %>
-                </p>
-                <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night</p><br>
+                <div class="p-4 sm:p-6 lg:p-8 space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="space-y-1">
+                            <p class="text-sm text-gray-500">Hosted by</p>
+                            <p class="font-semibold text-lg"><%= list.owner.username %></p>
+                        </div>
+                        <p class="text-2xl font-bold">₹<%= list.price.toLocaleString("en-IN") %> <span class="text-base font-normal text-gray-600">/night</span></p>
+                    </div>
+
+                    <div class="space-y-4 py-4 border-t border-b">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="text-gray-500">Location</h3>
+                                <p class="font-medium"><%= list.location %>, <%= list.country %></p>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-500 mb-2">Description</h3>
+                            <p class="text-gray-700"><%= list.description %></p>
+                        </div>
+                    </div>
                 <% if(curruser && list.owner._id.equals(curruser._id)){ %>
-                    <div class="flex gap-5">
-                        <a href="/listing/<%= list._id %>/edit"><button
-                                class="bg-black p-2 px-8 rounded hover:cursor-pointer hover:bg-white hover:text-black hover:border-1 text-white">Edit</button></a>
-
+                    <div class="flex flex-wrap gap-3">
+                        <a href="/listing/<%= list._id %>/edit" 
+                           class="inline-flex items-center px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors duration-200">
+                            <i class="fa-solid fa-edit mr-2"></i> Edit
+                        </a>
                         <form action="/listing/<%= list._id %>/delete?_method=DELETE" method="post">
-                            <button
-                                class="bg-red-500 p-2 px-8 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">Delete</button>
+                            <button class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200">
+                                <i class="fa-solid fa-trash mr-2"></i> Delete
+                            </button>
                         </form>
                     </div>
                     <% } %>
             </div>
             <% if(curruser){ %>
                 <hr>
-                <div class="review p-5 space-y-3">
-                    <h1>Leave A Review</h1>
-                    <form action="/listing/<%= list._id %>/reviews" method="post">
-                        <!--<div>
-                            <label class="block" for="">Rate</label>
-                            <input type="range" min="1" max="5" id="rating" name="review[rate]">
-                        </div>-->
-
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                    <h2 class="text-xl font-semibold mb-6">Leave a Review</h2>
+                    <form action="/listing/<%= list._id %>/reviews" method="post" class="space-y-6">
                         <fieldset class="starability-slot">
-                            <legend>Rating:</legend>
+                            <legend class="text-sm font-medium text-gray-700 mb-2">Rating:</legend>
                             <input type="radio" id="no-rate" class="input-no-rate" name="review[rate]" value="1" checked
                                 aria-label="No rating." />
                             <input type="radio" id="first-rate1" name="review[rate]" value="1" />
@@ -71,57 +80,75 @@
                             <label for="first-rate5" title="Amazing">5 stars</label>
                         </fieldset>
 
-
-
+                        <div>
+                            <label for="comment" class="block text-sm font-medium text-gray-700 mb-2">
+                                Your Review
+                            </label>
+                            <textarea 
+                                id="comment"
+                                name="review[comment]"
+                                rows="4"
+                                class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+                                placeholder="Share your experience..."
+                                required
+                            ></textarea>
+                        </div>
 
                         <div>
-                            <label class="block" for="comment">Comment</label>
-                            <textarea class="border-1 w-full p-2" rows="4" name="review[comment]" id="comment"
-                                required></textarea>
-                        </div> <br>
-                        <input type="submit"
-                            class="bg-blue-500 p-2 px-8 rounded text-black hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">
+                            <button type="submit"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-colors duration-200">
+                                <i class="fa-solid fa-paper-plane mr-2"></i>
+                                Submit Review
+                            </button>
+                        </div>
                     </form>
                 </div>
                 <% } %>
                     <hr>
-                    <div class="p-5">
-                        <h2 class="text-lg font-semibold">All Reviews</h2>
-                        <div class="flex flex-wrap gap-x-4">
+                    <div class="p-4 sm:p-6 lg:p-8 border-t">
+                        <h2 class="text-xl font-semibold mb-6">All Reviews</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <% for (const review of list.reviews) {%>
-                                <div class=" p-5 w-[calc(50%-8px)] border-1 mb-2 rounded-2xl bg-gray-100 border-none">
-                                    <div class="group flex items-center">
-                                        <div>
-                                            <img class="h-12 w-12  shrink-0 rounded-full" src="" alt="" />
+                                <div class="bg-gray-50 rounded-xl p-4 sm:p-6 hover:shadow-md transition-shadow duration-200">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                                <i class="fa-solid fa-user text-gray-500"></i>
+                                            </div>
                                         </div>
-                                        <div class="ltr:ml-3 rtl:mr-3">
-                                            <p class="text-gray-700 group-hover:text-gray-900 ...">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900">
                                                 <%= review.author.username %>
                                             </p>
-                                            <p class="text-gray-500 group-hover:text-gray-700 ...">
-                                                  <%= review.createdAt.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                                            <p class="text-sm text-gray-500">
+                                                <%= review.createdAt.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' }) %>
                                             </p>
                                         </div>
                                     </div>
 
-                                    <p class="starability-result mt-2" data-rating="<%= review.rate %>">
-                                        Rated: <%= review.rate %> stars
-                                    </p>
-
-                                    <p>
-                                        <%= review.comment %>
-                                    </p><br>
-
+                                    <div class="mt-4">
+                                        <div class="flex items-center mb-2">
+                                            <div class="flex items-center">
+                                                <% for(let i = 0; i < review.rate; i++) { %>
+                                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                                <% } %>
+                                                <% for(let i = review.rate; i < 5; i++) { %>
+                                                    <i class="fa-regular fa-star text-gray-300"></i>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700 text-sm leading-relaxed"><%= review.comment %></p>
+                                    </div>
                                     <% if(curruser && review.author._id.equals(curruser._id)){ %>
-                                        <div>
-                                            <form
-                                                action="/listing/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                                method="post">
-                                                <button
-                                                    class="bg-red-500 p-2 px-4 rounded text-white hover:cursor-pointer hover:bg-white hover:text-black hover:border-1">delete</button>
+                                        <div class="mt-4 flex gap-2">
+                                            <form action="/listing/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                                                <button class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-200">
+                                                    <i class="fa-solid fa-trash mr-1.5"></i>
+                                                    Delete
+                                                </button>
                                             </form>
                                         </div>
-                                        <% } %>
+                                    <% } %>
                                 </div>
                                 <%} %>
                         </div>

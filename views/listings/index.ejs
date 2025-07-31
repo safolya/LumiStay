@@ -76,24 +76,33 @@
 
     </div>
 
-    <div class="p-4 flex flex-wrap px-10 gap-10 items-center justify-around">
-        <% alllistings.forEach(list=> {%>
-            <a href="/listing/<%= list._id %>">
-                <div class="card rounded-2xl overflow-hidden w-[300px]  shadow-lg  mb-3">
-                    <img src="<%=list.image.url %>"
-                        class="w-[100%] h-48 object-cover object-center rounded-2xl hover:opacity-50" alt="picture">
-                    <div class="p-4">
-                        <!--<a href="/listing/<%= list._id %>"><li><%= list.title %></li></a>-->
-                        <p>
-                            <%= list.title %>
-                        </p>
-                        <p>&#8377;<%= list.price.toLocaleString("en-IN") %>/night &nbsp; <i class="tax hidden">+18% GST</i>
-                        </p>
-                        
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <% alllistings.forEach(list=> {%>
+                <a href="/listing/<%= list._id %>" class="transform transition duration-300 hover:scale-[1.02]">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="relative aspect-[4/3]">
+                            <img src="<%=list.image.url %>"
+                                class="absolute inset-0 w-full h-full object-cover object-center rounded-t-2xl" 
+                                alt="<%= list.title %>">
+                            <div class="absolute inset-0 bg-black/10 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-900 text-lg mb-2 line-clamp-1">
+                                <%= list.title %>
+                            </h3>
+                            <div class="flex items-center justify-between">
+                                <p class="text-gray-800">
+                                    <span class="font-medium">₹<%= list.price.toLocaleString("en-IN") %></span>
+                                    <span class="text-sm text-gray-600">/night</span>
+                                </p>
+                                <span class="tax hidden text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">+18% GST</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
             <%}); %>
+        </div>
     </div>
 
     <script>

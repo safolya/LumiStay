@@ -191,25 +191,51 @@
 
     <div class="container flex-[1]">
         <% if(success.length>0){ %>
-            <div class="flex items-center justify-center">
-                <div
-                    class=" bg-[#198754] p-3 rounded-b flex items-center justify-center text-white font-semibold w-[20%]">
-                    <h1>
-                        <%= success %>
-                    </h1>
-                </div>
-            </div>
-
-            <% } %>
-
-                <% if(error.length>0){ %>
-                    <div class="flex items-center justify-center">
-                        <div
-                            class=" bg-red-400 p-3 rounded-b flex items-center justify-center text-black font-semibold w-[20%]">
-                            <h1>
-                                <%= error %>
-                            </h1>
+            <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 max-w-md animate-[slideDown_0.5s_ease-out]">
+                <div class="bg-green-50 border-l-4 border-green-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-4 flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-green-500 text-xl"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-green-800 font-medium">
+                                <%= success %>
+                            </p>
+                        </div>
+                        <div class="ml-auto pl-3">
+                            <div class="-mx-1.5 -my-1.5">
+                                <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" 
+                                        class="inline-flex rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        <% } %>
 
-                    <% } %>
+        <% if(error.length>0){ %>
+            <div class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 max-w-md animate-[slideDown_0.5s_ease-out]">
+                <div class="bg-red-50 border-l-4 border-red-500 rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-4 flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fa-solid fa-circle-exclamation text-red-500 text-xl"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-red-800 font-medium">
+                                <%= error %>
+                            </p>
+                        </div>
+                        <div class="ml-auto pl-3">
+                            <div class="-mx-1.5 -my-1.5">
+                                <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" 
+                                        class="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
