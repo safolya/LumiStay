@@ -4,16 +4,9 @@ const userModel = require("../models/user");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 const { isloggedin, savedUrl } = require("../middlewares/isloggedin");
-const multer  = require('multer')
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname)
-  }
-});
-const upload = multer({ storage })
+const multer = require('multer');
+const { storage } = require("../cloudinaryconfig");
+const upload = multer({ storage });
 
 router.get("/signup", (req, res) => {
   res.render("user/signup.ejs");
@@ -65,43 +58,39 @@ router.get("/profile", isloggedin, async (req, res) => {
   res.render("user/profile.ejs", { user });
 });
 
-router.post("/profile/", isloggedin, upload.single('profilePic'), async (req, res) => {
+router.post("/profile", isloggedin, upload.single('profilePic'), async (req, res) => {
   try {
-    // 1. Find the user in the database
+    // Find the user in the database
     const user = await userModel.findById(req.user._id);
     
-     if (!user) {
+    if (!user) {
       req.flash("error", "User not found. Please log in again.");
-      // Redirect to a login page or another appropriate route
       return res.redirect("/login");
     }
 
-
-    // 2. Update username and email only if they were provided in the form
+    // Update username and email if provided
     if (req.body.username) {
-      user.username = req.body.username || user.username;
+      user.username = req.body.username;
     }
 
     if (req.body.email) {
-      user.email = req.body.email || user.email;
+      user.email = req.body.email;
     }
 
+    // Handle profile image upload
     if (req.file) {
-      console.log("File uploaded:", req.file);
-      user.profilePic = {
-        filename: req.file.originalname,
-        originalName: req.file.originalname,
-        path: req.file.path,
-        size: req.file.size
+      user.profileImage = {
+        url: req.file.path,
+        filename: req.file.filename
       };
     }
 
-    // 4. Save the updated user object
+    // Save the updated user
     await user.save();
     req.flash("success", "Profile updated successfully");
     res.redirect("/profile");
   } catch (error) {
-    console.log(error);
+    console.error("Profile update error:", error);
     req.flash("error", "There was an error updating your profile.");
     res.redirect("/profile");
   }

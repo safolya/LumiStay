@@ -14,6 +14,11 @@ const listingSchema=new mongoose.Schema({
       url: String,
       filename: String, // Assuming you want to store the filename as well
     },
+    category: {
+      type: String,
+      enum: ['Beach', 'Mountain', 'Lake', 'Tropical', 'Countryside', 'City'],
+      required: true
+    },
     country:String,
     location:String,
     price:Number,

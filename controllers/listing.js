@@ -6,8 +6,12 @@ const {storage} = require("../cloudinaryconfig"); // Use memory storage for mult
 const upload = multer({ storage })
 
 module.exports.index=async (req, res) => {
-    const alllistings = await listingModel.find({});
-    res.render("listings/index.ejs", { alllistings });
+    let filter = {};
+    if (req.query.category) {
+        filter.category = req.query.category;
+    }
+    const alllistings = await listingModel.find(filter);
+    res.render("listings/index.ejs", { alllistings, selectedCategory: req.query.category || 'All' });
 }
 
 module.exports.create=async (req, res, next) => {
@@ -73,18 +77,27 @@ module.exports.delete=async (req, res) => {
     res.redirect("/listing");
 }
 
-module.exports.show=async (req, res) => {
-    let { id } = req.params;
-    let list = await listingModel.findById(id).populate({
-        path: "reviews",
-        populate: {
-            path: "author"
+module.exports.show=async(req,res)=>{
+    try {
+        const list = await listingModel.findById(req.params.id)
+            .populate({
+                path: 'reviews',
+                populate: {
+                    path: 'author',
+                    select: 'username profileImage'
+                }
+            })
+            .populate('owner');
+            
+        if(!list){
+            req.flash("error","list already deleted");
+            return res.redirect("/listing");
         }
-    }).populate("owner");
-    if(!list){
-        req.flash("error","list already deleted");
-        res.redirect("/listing");
-    }else{
+        
         res.render("listings/show.ejs", { list });
+    } catch (error) {
+        console.error("Error showing listing:", error);
+        req.flash("error", "Error loading listing");
+        res.redirect("/listing");
     }
 }

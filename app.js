@@ -8,8 +8,9 @@ const db = require("./config/mongoose-connection");
 const listingModel = require("./models/listing");
 const reviewModel = require("./models/reviews");
 const listingRouter=require("./routes/listingRouter");
-const reviewRouter=require("./routes/reviewRouter")
+const reviewRouter=require("./routes/reviewRouter");
 const userRouter=require("./routes/userRouter");
+const pagesRouter=require("./routes/pagesRouter");
 const session=require("express-session");
 const connectFlash=require("connect-flash");
 const {joilistingSchema,reviewSchema} = require("./joischema");
@@ -73,7 +74,7 @@ app.use((req,res,next)=>{
 app.use("/listing",listingRouter);
 app.use("/listing/:id/reviews",reviewRouter);
 app.use("/",userRouter);
-
+app.use("/",pagesRouter);
 
 
 
