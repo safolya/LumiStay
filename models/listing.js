@@ -16,7 +16,7 @@ const listingSchema=new mongoose.Schema({
     },
     category: {
       type: String,
-      enum: ['Beach', 'Mountain', 'Lake', 'Tropical', 'Countryside', 'City'],
+      enum: ['Trending', 'Iconic Cities', 'Mountains', 'Amazing Pools', 'Camping', 'Arctic', 'Castle', 'Rooms', 'Dome', 'Farm'],
       required: true
     },
     country:String,
