@@ -7,7 +7,7 @@ const upload = multer({ storage })
 
 module.exports.index=async (req, res) => {
     let filter = {};
-    if (req.query.category) {
+    if (req.query.category && req.query.category !== 'all') {
         filter.category = req.query.category;
     }
     const alllistings = await listingModel.find(filter);

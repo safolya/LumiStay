@@ -7,55 +7,82 @@
         <!-- Filters Section with Horizontal Scroll on Mobile -->
         <div class="w-full md:w-auto overflow-x-auto scrollbar-hide">
             <div class="flex items-center gap-6 md:gap-10 p-2 min-w-max">
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-fire"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Trending</p>
-                </div>
+                <a href="/listing?category=all" class="filter-link <%= !selectedCategory || selectedCategory === 'All' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-globe"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">All</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-mountain-city"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Iconic Cities</p>
-                </div>
+                <a href="/listing?category=Trending" class="filter-link <%= selectedCategory === 'Trending' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-fire"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Trending</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-mountain"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Mountains</p>
-                </div>
+                <a href="/listing?category=Iconic Cities" class="filter-link <%= selectedCategory === 'Iconic Cities' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-mountain-city"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Iconic Cities</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-person-swimming"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Amazing Pools</p>
-                </div>
+                <a href="/listing?category=Mountains" class="filter-link <%= selectedCategory === 'Mountains' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-mountain"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Mountains</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-campground"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Camping</p>
-                </div>
+                <a href="/listing?category=Amazing Pools" class="filter-link <%= selectedCategory === 'Amazing Pools' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-person-swimming"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Amazing Pools</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-snowflake"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Arctic</p>
-                </div>
+                <a href="/listing?category=Camping" class="filter-link <%= selectedCategory === 'Camping' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-campground"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Camping</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-chess-rook"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Castle</p>
-                </div>
+                <a href="/listing?category=Arctic" class="filter-link <%= selectedCategory === 'Arctic' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-snowflake"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Arctic</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-bed"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Rooms</p>
-                </div>
+                <a href="/listing?category=Castle" class="filter-link <%= selectedCategory === 'Castle' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-chess-rook"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Castle</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-landmark-dome"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Dome</p>
-                </div>
+                <a href="/listing?category=Rooms" class="filter-link <%= selectedCategory === 'Rooms' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-bed"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Rooms</p>
+                    </div>
+                </a>
 
-                <div class="filter flex flex-col items-center opacity-60 hover:opacity-100 hover:cursor-pointer transition-all duration-200">
-                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-cow"></i></div>
-                    <p class="text-xs md:text-sm whitespace-nowrap">Farm</p>
-                </div>
+                <a href="/listing?category=Dome" class="filter-link <%= selectedCategory === 'Dome' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-landmark-dome"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Dome</p>
+                    </div>
+                </a>
+
+                <a href="/listing?category=Farm" class="filter-link <%= selectedCategory === 'Farm' ? 'opacity-100' : 'opacity-60' %>">
+                    <div class="filter flex flex-col items-center hover:opacity-100 hover:cursor-pointer transition-all duration-200">
+                        <div class="text-xl md:text-2xl mb-1"><i class="fa-solid fa-cow"></i></div>
+                        <p class="text-xs md:text-sm whitespace-nowrap">Farm</p>
+                    </div>
+                </a>
             </div>
         </div>
 
