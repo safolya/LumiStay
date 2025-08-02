@@ -12,6 +12,7 @@ const reviewRouter=require("./routes/reviewRouter");
 const userRouter=require("./routes/userRouter");
 const pagesRouter=require("./routes/pagesRouter");
 const session=require("express-session");
+const connectMongo = require("connect-mongo");
 const connectFlash=require("connect-flash");
 const {joilistingSchema,reviewSchema} = require("./joischema");
 const path = require("path");
@@ -29,7 +30,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.json());
 
+const store= connectMongo.create({
+    mongoUrl: process.env.ATLASDB_URL,
+    crypto: {
+        secret:"mysecert" ,
+    },
+    touchAfter: 24 * 3600, // time in seconds after which the session will be updated
+});
+
+store.on("error", function (error) {
+    console.log("Session store error:", error);
+});
+
 const sessionOptions={
+    store: store,
     secret:"mysecert",
     resave: false,
     saveUninitialized: true,
@@ -39,6 +53,8 @@ const sessionOptions={
         httpOnly: true,
     },
 }
+
+
 
 app.get("/", (req, res) => {
     res.render("listings/first.ejs");

@@ -101,3 +101,16 @@ module.exports.show=async(req,res)=>{
         res.redirect("/listing");
     }
 }
+
+module.exports.subscribe=async(req,res)=>{
+    let email=req.body.email;
+    if(!email){
+        req.flash("error","Please provide an email to subscribe");
+        return res.redirect("/listing");
+    }else{
+        // Here you would typically save the email to a database or send it to a mailing list service
+        // For demonstration, we'll just log it
+        req.flash("success","Subscribed successfully");
+        res.redirect("/listing");
+    }
+}

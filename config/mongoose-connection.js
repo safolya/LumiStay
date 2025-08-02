@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 
-const MONGO_URL="mongodb://127.0.0.1:27017/LumiStay";
+// const MONGO_URL="mongodb://127.0.0.1:27017/LumiStay";
+const dburl=process.env.ATLASDB_URL;
 
 main().then( ()=>{
     console.log("conected.db");
@@ -10,7 +11,7 @@ main().then( ()=>{
 
 
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dburl);
 };
 
 module.exports=mongoose.connection;

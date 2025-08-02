@@ -47,4 +47,6 @@ router.delete("/:id/delete", isloggedin, ownerCheck, wrapAsync(listingContoller.
 //show route
 router.get("/:id", wrapAsync(listingContoller.show));
 
+router.post("/subscribe", isloggedin, wrapAsync(listingContoller.subscribe));
+
 module.exports=router;
