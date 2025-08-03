@@ -30,6 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.json());
 
+const port= process.env.PORT || 8080;
+
 const store= connectMongo.create({
     mongoUrl: process.env.ATLASDB_URL,
     crypto: {
@@ -114,4 +116,6 @@ app.use((err, req, res, next) => {
     res.send(newList);
 })*/
 
-app.listen(3000);
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
