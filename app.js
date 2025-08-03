@@ -33,7 +33,7 @@ app.use(express.json());
 const store= connectMongo.create({
     mongoUrl: process.env.ATLASDB_URL,
     crypto: {
-        secret:"mysecert" ,
+        secret: process.env.SESSION_SECRET,
     },
     touchAfter: 24 * 3600, // time in seconds after which the session will be updated
 });
@@ -44,7 +44,7 @@ store.on("error", function (error) {
 
 const sessionOptions={
     store: store,
-    secret:"mysecert",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie:{

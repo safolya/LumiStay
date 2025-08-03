@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "22.14.0"
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
     "cloudinary": "^1.41.3",
