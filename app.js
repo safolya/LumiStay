@@ -46,7 +46,7 @@ const sessionOptions={
     store: store,
     secret: process.env.SESSION_SECRET || "fallbacksecret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie:{
         expires: Date.now()+7*24*60*60*1000,
         maxAge: 7*24*60*60*1000,
@@ -54,6 +54,7 @@ const sessionOptions={
         secure: process.env.NODE_ENV === "production",
         sameSite: 'lax'
     },
+    name: 'session' // Don't use connect.sid
 }
 
 
