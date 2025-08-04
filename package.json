@@ -4,8 +4,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "build": "npm install",
-    "dev": "node --watch app.js"
+    "build": "npm install"
   },
   "dependencies": {
     "tailwindcss": "^3.3.0",
